@@ -1,0 +1,7 @@
+/.tsimp
+/dist
+/node_modules
+/tmp
+/tmp.sqlite
+
+/*.tsbuildinfo
