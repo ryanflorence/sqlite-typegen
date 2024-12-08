@@ -36,8 +36,8 @@ test("outputs types", () => {
   assert.equal(
     `// auto-generated from SQLite schema with sqlite-typegen
 
-export type DB = {
-  test: {
+export namespace SQLiteSchema {
+  export type test = {
     id?: number;
     real?: number;
     text?: string;
@@ -48,16 +48,15 @@ export type DB = {
     varchar?: string;
     char?: string;
   };
-  posts: {
+  export type posts = {
     id?: number;
     title?: string;
     body?: string;
     user_id?: number;
     created_at?: Date;
   };
-};
-`,
-    output,
+}`,
+    output.trim(),
   );
 
   db.close();

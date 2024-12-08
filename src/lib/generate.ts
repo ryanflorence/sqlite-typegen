@@ -28,7 +28,7 @@ export function generate(dbPath: string, ns = "SQLiteSchema") {
   let db = new Database(dbPath);
 
   let output = "// auto-generated from SQLite schema with sqlite-typegen\n\n";
-  output += `export type ${ns} = {\n`;
+  output += `export namespace ${ns} {\n`;
 
   let tableQuery = sql`SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%'`;
   let tables = db.prepare(tableQuery).all() as Table[];
@@ -44,8 +44,8 @@ export function generate(dbPath: string, ns = "SQLiteSchema") {
       .prepare(sql`PRAGMA table_info('${table.name}')`)
       .all() as Column[];
 
-    // Start interface definition
-    output += `  ${table.name}: {\n`;
+    // Start type definition
+    output += `  export type ${table.name} = {\n`;
 
     for (let column of columns) {
       let nullable = column.notnull === 0;
@@ -59,7 +59,7 @@ export function generate(dbPath: string, ns = "SQLiteSchema") {
     output += "  };\n";
   }
 
-  output += "};\n";
+  output += "}\n";
 
   // Close database connection
   db.close();

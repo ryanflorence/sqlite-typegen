@@ -96,14 +96,14 @@ SQLite types are mapped to TypeScript types as follows:
 For a database with a `users` table, the generated types might look like:
 
 ```typescript
-export type SQLiteSchema = {
-  users: {
+export namespace SQLiteSchema {
+  export type users = {
     id: number;
     name: string;
     email: string;
     created_at?: Date; // nullable columns become optional
   };
-};
+}
 ```
 
 ## License
