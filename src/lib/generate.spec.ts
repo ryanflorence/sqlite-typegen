@@ -15,6 +15,7 @@ test("outputs types", () => {
       blob BLOB,
       boolean BOOLEAN,
       datetime DATETIME,
+      timestamp TIMESTAMP,
       numeric NUMERIC,
       varchar VARCHAR(255),
       char CHAR(255)
@@ -24,11 +25,12 @@ test("outputs types", () => {
   db.prepare(
     `
     CREATE TABLE posts (
-      id INTEGER PRIMARY KEY,
+      id INTEGER PRIMARY KEY NOT NULL,
       title TEXT,
       body TEXT,
       user_id INTEGER,
       created_at DATETIME
+      updated_at TIMESTAMP
     )`,
   ).run();
 
@@ -43,17 +45,18 @@ export namespace SQLiteSchema {
     text?: string;
     blob?: Buffer;
     boolean?: boolean;
-    datetime?: Date;
+    datetime?: string;
+    timestamp?: string;
     numeric?: number;
     varchar?: string;
     char?: string;
   };
   export type posts = {
-    id?: number;
+    id: number;
     title?: string;
     body?: string;
     user_id?: number;
-    created_at?: Date;
+    created_at?: any;
   };
 }`,
     output.trim(),
