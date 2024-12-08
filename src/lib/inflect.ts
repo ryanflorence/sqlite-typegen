@@ -23,7 +23,6 @@ const IRREGULAR_NOUNS: Record<string, string> = {
   oases: "oasis",
   theses: "thesis",
   crises: "crisis",
-  phenomena: "phenomenon",
   alumni: "alumnus",
   vertebrae: "vertebra",
 };
