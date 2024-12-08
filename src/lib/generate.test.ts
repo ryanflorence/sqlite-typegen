@@ -1,14 +1,18 @@
-import { test } from "node:test";
+import { test, after } from "node:test";
 import Database from "better-sqlite3";
 import * as assert from "node:assert";
-import { generate } from "./generate.js";
+import { generate } from "./generate.ts";
 import fs from "node:fs";
+
+after(() => {
+  fs.unlinkSync("tmp.db");
+});
 
 test("outputs types", () => {
   let db = new Database("tmp.db");
   db.prepare(
     `
-    CREATE TABLE test (
+    CREATE TABLE tests (
       id INTEGER PRIMARY KEY,
       real REAL,
       text TEXT,
@@ -51,7 +55,7 @@ export namespace SQLiteSchema {
     varchar?: string;
     char?: string;
   };
-  export type posts = {
+  export type post = {
     id: number;
     title?: string;
     body?: string;
@@ -61,7 +65,4 @@ export namespace SQLiteSchema {
 }`,
     output.trim(),
   );
-
-  db.close();
-  fs.unlinkSync("tmp.db");
 });

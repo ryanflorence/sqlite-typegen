@@ -1,9 +1,9 @@
 import arg from "arg";
 import pc from "picocolors";
-import { generate } from "./lib/generate.js";
 import fs from "fs";
 import { resolve } from "path";
 import { highlight } from "cli-highlight";
+import { generate } from "./lib/generate.ts";
 
 let args = arg({
   "--help": Boolean,

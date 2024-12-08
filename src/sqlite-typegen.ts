@@ -1,1 +1,1 @@
-export { generate } from "./lib/generate.js";
+export { generate } from "./lib/generate.ts";
