@@ -1,4 +1,5 @@
 import Database from "better-sqlite3";
+import { singularize } from "./inflect.ts";
 
 let typeMapping: { [key: string]: string } = {
   INTEGER: "number",
@@ -46,7 +47,7 @@ export function generate(dbPath: string, ns = "SQLiteSchema") {
       .all() as Column[];
 
     // Start type definition
-    output += `  export type ${table.name} = {\n`;
+    output += `  export type ${singularize(table.name)} = {\n`;
 
     for (let column of columns) {
       let nullable = column.notnull === 0;
