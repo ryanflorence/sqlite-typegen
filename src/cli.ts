@@ -19,9 +19,9 @@ if (args["--help"]) {
   process.exit(0);
 }
 
-let dbPath = args._[0];
+let dbPath = process.env.DB_PATH;
 if (!dbPath) {
-  console.log(pc.red("Error:"), "Database path is required");
+  console.log(pc.red("Error:"), "DB_PATH env variable is not set");
   printUsage();
   process.exit(1);
 }
@@ -41,7 +41,10 @@ if (args["--out"]) {
 function printUsage() {
   console.log(`
 ${pc.bold("USAGE")}
-  ${pc.cyan("sqlite-typegen")} <db path> [options]
+  ${pc.cyan("sqlite-typegen")} [options]
+
+${pc.bold("ENVIRONMENT VARIABLES")}
+  ${pc.yellow("DB_PATH")}  Path to SQLite database file
 
 ${pc.bold("OPTIONS")}
   -o, --out         Output file path (optional)
@@ -49,8 +52,8 @@ ${pc.bold("OPTIONS")}
   -h, --help        Print help message
   
 ${pc.bold("EXAMPLES")}
-  ${pc.cyan("sqlite-typegen")} ./database.sqlite
-  ${pc.cyan("sqlite-typegen")} ./database.sqlite --out types.ts
-  ${pc.cyan("sqlite-typegen")} ./database.sqlite --out types.ts -n DB
+  ${pc.cyan("sqlite-typegen")}
+  ${pc.cyan("sqlite-typegen")} --out types.ts
+  ${pc.cyan("sqlite-typegen")} --out types.ts -n DB
 `);
 }
